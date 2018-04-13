@@ -1,0 +1,12 @@
+[master]
+192.168.122.200
+
+[node]
+192.168.122.[201:203]
+
+[cluster:children]
+master
+node
+
+[all:vars]
+token=famrdg.m25okf1hbft25ltc

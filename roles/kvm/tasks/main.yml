@@ -1,0 +1,37 @@
+---
+- name: start libvirtd
+  service: name=libvirtd state=started enabled=yes
+  register: libvirtd
+
+- name: wait for libvirtd to get up
+  pause: seconds=30
+  when: libvirtd.changed
+
+- name: get list of vms
+  virt: command=list_vms
+  register: virt_vms
+
+- name: create vms
+  command: virt-install -n {{ item.name }}
+            --ram {{ item.mem }}
+            --vcpus {{ item.cpu }}
+            --location {{ item.url }}
+            --os-type {{ item.os.type }}
+            --os-variant {{ item.os.variant }}
+            --network bridge:virbr0,model=virtio
+            --disk size=10,path={{ item.disk.path }}/{{ item.name }}.img
+            --initrd-inject={{ role_path }}/files/preseed.cfg
+            --graphics none
+            --noautoconsole
+            --extra-args='console=tty0 console=ttyS0,115200n8 serial netcfg/get_ipaddress={{ item.net.ip }} netcfg/get_hostname={{ item.name }}'
+  when: item.name not in virt_vms.list_vms
+  with_items: "{{ guests }}"
+
+- name: get guest info
+  virt: command=info
+  register: virt_info
+
+- name: make sure all vms are running
+  virt: name={{ item.name }} command=start
+  when: virt_info[item.name]['state'] != 'running'
+  with_items: "{{ guests }}"

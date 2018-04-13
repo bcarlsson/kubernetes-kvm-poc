@@ -1,0 +1,23 @@
+---
+
+- hosts: cluster
+  user: ubuntu
+  become: true
+  become_method: sudo
+  roles:
+    - pre-setup
+    - kube-ubuntu/common
+
+- hosts: master
+  user: ubuntu
+  become: true
+  become_method: sudo
+  roles:
+    - kube-ubuntu/master
+
+- hosts: node
+  user: ubuntu
+  become: true
+  become_method: sudo
+  roles:
+    - kube-ubuntu/node

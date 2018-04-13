@@ -1,0 +1,27 @@
+---
+- name: Remove swap from fstab
+  mount:
+    name: swap
+    fstype: swap
+    path: none
+    state: absent
+
+- name: Disable swap
+  command: swapoff --all
+  when: ansible_swaptotal_mb > 0
+
+- name: Install docker.io
+  apt:
+    name: docker.io
+    state: present
+    update_cache: yes
+
+- name: Enable docker in systemd
+  systemd:
+    name: docker
+    enabled: yes
+
+- name: Sart docker service
+  systemd:
+    name: docker
+    state: started

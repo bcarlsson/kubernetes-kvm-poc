@@ -1,0 +1,9 @@
+---
+- name: Install VMs
+  hosts: 127.0.0.1
+  become: true
+  vars_files:
+  - vars/guests.yml
+
+  roles:
+  - kvm

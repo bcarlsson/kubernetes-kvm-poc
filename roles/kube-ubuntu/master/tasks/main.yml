@@ -1,0 +1,33 @@
+---
+- name: Reset Kubernetes
+  shell: "kubeadm reset"
+
+- name: Init Kubernetes cluster
+  shell: |
+    kubeadm init --token {{ token }}
+
+- name: Create Kubernetes config dir
+  become: false
+  file: path="~/.kube/" state=directory
+
+
+- name: Copy admin.conf to ~/.kube/config
+  copy:
+    src: "/etc/kubernetes/admin.conf"
+    dest: "/home/ubuntu/.kube/config"
+    owner: "ubuntu"
+    group: "ubuntu"
+    mode: 0755
+    remote_src: True
+
+- name: Reload and restart kubelet
+  systemd:
+    name: kubelet
+    daemon_reload: yes
+    state: restarted
+    enabled: yes
+
+- name: Apply the Weave Cloud network
+  become: false
+  shell: >
+    kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n')"
