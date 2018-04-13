@@ -3,7 +3,8 @@
 A Kubernetes cluster PoC running on KVM.
 
 ## Prerequisites
-- Install libvirt
+- Ansible
+- Libvirt
 - Uncomment "host_key_checking = false" in /etc/anisble/ansible.cfg
 
 ## Install VMs
