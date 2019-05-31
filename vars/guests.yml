@@ -1,7 +1,7 @@
 ---
 guests:
   - name: k8s-master
-    url: http://se.archive.ubuntu.com/ubuntu/dists/xenial/main/installer-amd64/
+    url: http://se.archive.ubuntu.com/ubuntu/dists/xenial-updates/main/installer-amd64/
     cpu: 1
     mem: 1024
     virt_type: kvm
@@ -15,7 +15,7 @@ guests:
       ip: "192.168.122.200"
 
   - name: k8s-1
-    url: http://se.archive.ubuntu.com/ubuntu/dists/xenial/main/installer-amd64/
+    url: http://se.archive.ubuntu.com/ubuntu/dists/xenial-updates/main/installer-amd64/
     cpu: 1
     mem: 1024
     virt_type: kvm
@@ -29,7 +29,7 @@ guests:
       ip: "192.168.122.201"
 
   - name: k8s-2
-    url: http://se.archive.ubuntu.com/ubuntu/dists/xenial/main/installer-amd64/
+    url: http://se.archive.ubuntu.com/ubuntu/dists/xenial-updates/main/installer-amd64/
     cpu: 1
     mem: 1024
     virt_type: kvm
@@ -43,7 +43,7 @@ guests:
       ip: "192.168.122.202"
 
   - name: k8s-3
-    url: http://se.archive.ubuntu.com/ubuntu/dists/xenial/main/installer-amd64/
+    url: http://se.archive.ubuntu.com/ubuntu/dists/xenial-updates/main/installer-amd64/
     cpu: 1
     mem: 1024
     virt_type: kvm
