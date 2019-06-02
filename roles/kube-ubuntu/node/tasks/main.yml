@@ -5,7 +5,7 @@
 
 - name: Join the Kubernetes cluster
   shell: |
-    kubeadm join --skip-preflight-checks \
+    kubeadm join --skip-phases=preflight \
                  --token {{ token }} \
                  192.168.122.200:6443 \
                  --discovery-token-unsafe-skip-ca-verification
