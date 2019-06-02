@@ -1,6 +1,6 @@
 ---
 - name: Reset Kubernetes
-  shell: "kubeadm reset"
+  shell: "kubeadm reset --force"
 
 - name: Init Kubernetes cluster
   shell: |
